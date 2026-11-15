@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <!-- Print on console log -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+
+        <!-- Routing Appender automatically creates files based on test method names. -->
+        <Routing name="RoutingAppender">
+            <Routes pattern="$${ctx:testName}">
+                <!-- run local, not add log file -->
+                <Route key="$${ctx:testName}">
+                    <AppenderRef ref="Console"/>
+                </Route>
+
+                <!-- Run on testng.xml, add log file -->
+                <Route>
+                    <File name="File-${ctx:testName}" fileName="logs/${ctx:testName}.log" append="false">
+                        <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n" />
+                    </File>
+                </Route>
+            </Routes>
+        </Routing>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RoutingAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>

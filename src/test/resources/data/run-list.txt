@@ -1,0 +1,5 @@
+testGetSingleUserSuccess
+testCreateUser
+testLoginWithoutEmail
+testSuccessfulLogin
+testAcceptAlert

@@ -14,16 +14,12 @@ on:
         required: false
         default: ''
         type: string
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    # Add permission
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
 
     steps:
       # Checkout repository source code
@@ -60,32 +56,16 @@ jobs:
             screenshots
           retention-days: 3
 
-      # Fetch previous Allure test history from the gh-pages branch (continue on error if branch doesn't exist yet)
-      - name: Get Allure History
-        uses: actions/checkout@v4
+      - name: Build test report
         if: always()
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
+        run: |
+          npm install -g allure
+          allure generate build/allure-results -o allure-report
 
-      # Generate the comprehensive HTML Allure Report from raw results and history
-      - name: Generate Allure Report
-        uses: simple-elf/allure-report-action@master
-        if: always()
-        id: allure-report
-        with:
-          allure_results: allure-results
-          gh_pages: gh-pages
-          allure_report: allure-report
-          keep_reports: 20
-
-      # Publish and deploy the generated Allure Report to GitHub Pages branch
-      - name: Deploy Allure Report to GitHub Pages
+      - name: Publish test report
         uses: peaceiris/actions-gh-pages@v4
         if: always()
         with:
-          personal_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: allure-report
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          keep_files: true
+          publish_dir: allure-report

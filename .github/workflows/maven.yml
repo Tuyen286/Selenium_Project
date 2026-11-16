@@ -42,11 +42,43 @@ jobs:
             mvn clean test
           fi
 
-      # Archive and upload Allure test results regardless of test execution status
-      - name: Upload Allure Results
+      # Archive and upload logs and screenshots regardless of test execution status
+      - name: Upload Logs and screenshots
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: allure-results
-          path: allure-results
+          name: test-reports-and-logs
+          path: |
+            allure-results
+            logs
+            screenshots
           retention-days: 3
+
+      # 1. Generate Allure Report
+      - name: Get Allure History
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Generate Allure Report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        id: allure-report
+        with:
+          allure_results: allure-results
+          gh_pages: gh-pages
+          allure_report: allure-report
+          keep_reports: 20
+
+      # 2. Deploy Report to GitHub Pages
+      - name: Deploy Allure Report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: allure-report
+          publish_branch: gh-pages
+          keep_files: true

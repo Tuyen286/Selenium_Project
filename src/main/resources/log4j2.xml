@@ -6,18 +6,23 @@
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
 
-        <!-- Routing Appender automatically creates files based on test method names. -->
+        <!-- General execution log file -->
+        <File name="GeneralFile" fileName="logs/execution.log" append="false">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+
+        <!-- Routing Appender automatically creates files based on test method names -->
         <Routing name="RoutingAppender">
             <Routes pattern="$${ctx:testName}">
-                <!-- run local, not add log file -->
+                <!-- Run local without testName: log to GeneralFile -->
                 <Route key="$${ctx:testName}">
-                    <AppenderRef ref="Console"/>
+                    <AppenderRef ref="GeneralFile"/>
                 </Route>
 
-                <!-- Run on testng.xml, add log file -->
+                <!-- Run via testng.xml with testName: create individual log file -->
                 <Route>
                     <File name="File-${ctx:testName}" fileName="logs/${ctx:testName}.log" append="false">
-                        <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n" />
+                        <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>
                     </File>
                 </Route>
             </Routes>

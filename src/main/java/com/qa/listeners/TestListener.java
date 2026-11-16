@@ -15,6 +15,7 @@ public class TestListener implements ITestListener {
     public void onTestStart(ITestResult result) {
         // Automatically assign the test method name to ThreadContext at the very start of a test case.
         String testName = result.getMethod().getMethodName();
+        ThreadContext.put("testName", testName);
         log.info("=== Starting Test: {} ===", testName);
     }
 

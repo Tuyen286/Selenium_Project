@@ -19,6 +19,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    # Add permission
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
     steps:
       # Checkout repository source code
       - uses: actions/checkout@v4

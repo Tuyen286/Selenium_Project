@@ -1,1 +1,1 @@
-{"id":"587ae77f54688b72bf7a446cd416b296.d41d8cd98f00b204e9800998ecf8427e","fullName":"com.qa.tests.api.UserApiTest.testGetTokenAfterLoginUser","name":"testGetTokenAfterLoginUser","status":"passed","testResultsByEnv":{"default":"c273cd66b4a90f38b4f089e84b8be575"}}
+{"id":"587ae77f54688b72bf7a446cd416b296.d41d8cd98f00b204e9800998ecf8427e","fullName":"com.qa.tests.api.UserApiTest.testGetTokenAfterLoginUser","name":"testGetTokenAfterLoginUser","status":"passed","testResultsByEnv":{"default":"e218e28f4f80a905b0303ec314b165e2"}}

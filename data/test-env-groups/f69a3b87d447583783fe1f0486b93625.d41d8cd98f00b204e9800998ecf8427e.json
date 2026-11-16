@@ -1,1 +1,1 @@
-{"id":"f69a3b87d447583783fe1f0486b93625.d41d8cd98f00b204e9800998ecf8427e","fullName":"com.qa.tests.api.UserApiTest.testLoginWithoutEmail","name":"testLoginWithoutEmail","status":"passed","testResultsByEnv":{"default":"9eed832a5b62c730bc91f6eeae1dbe35"}}
+{"id":"f69a3b87d447583783fe1f0486b93625.d41d8cd98f00b204e9800998ecf8427e","fullName":"com.qa.tests.api.UserApiTest.testLoginWithoutEmail","name":"testLoginWithoutEmail","status":"passed","testResultsByEnv":{"default":"83c05444732b0bf49be49f04e5d5fd6c"}}
